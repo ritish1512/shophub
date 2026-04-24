@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Order Confirmed</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Success</p>
+                        <h1>Order Confirmed!</h1>
+                        <p class="auth-subtitle">Thank you for your purchase. Your order has been placed successfully.</p>
+                    </div>
+                </header>
+
+                <div class="auth-body">
+                    <div class="confirmation-details">
+                        <div class="confirmation-item">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <div>
+                                <h3>Order Placed</h3>
+                                <p id="order-id">Order ID: #123456</p>
+                            </div>
+                        </div>
+                        <div class="confirmation-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <h3>Email Sent</h3>
+                                <p>Order details sent to Shophub</p>
+                            </div>
+                        </div>
+                        <div class="confirmation-item">
+                            <i class="fa-solid fa-truck"></i>
+                            <div>
+                                <h3>Shipping</h3>
+                                <p>Your order will be delivered within 3-5 business days.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="home.html" class="auth-button">Continue Shopping</a>
+                </div>
+
+                <footer class="auth-footer">
+                    <a href="home.html" class="auth-link">← Back to Home</a>
+                </footer>
+            </section>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
+                if (!loggedIn) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                const order = JSON.parse(localStorage.getItem('lastOrder'));
+                if (order) {
+                    document.getElementById('order-id').textContent = `Order ID: ${order.id}`;
+                }
+            });
+        </script>
+    </body>
+</html>

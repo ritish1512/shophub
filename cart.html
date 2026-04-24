@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Cart</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card cart-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Your cart</p>
+                        <h1>Shopping Cart</h1>
+                        <p class="auth-subtitle">Review your items and proceed to checkout.</p>
+                    </div>
+                </header>
+
+                <div class="cart-body">
+                    <div id="cart-empty" class="cart-empty">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some products to get started!</p>
+                        <a href="home.html" class="auth-button">Browse Products</a>
+                    </div>
+
+                    <div id="cart-items" class="cart-items hidden">
+                        <!-- Cart items will be dynamically added here -->
+                    </div>
+
+                    <div id="cart-summary" class="cart-summary hidden">
+                        <div class="cart-total">
+                            <span>Total: ₹<span id="cart-total-amount">0</span></span>
+                        </div>
+                        <button class="checkout-button" onclick="proceedToCheckout()">
+                            <i class="fa-solid fa-credit-card"></i> Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+
+                <footer class="auth-footer">
+                    <a href="home.html" class="auth-link">← Continue Shopping</a>
+                </footer>
+            </section>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
+                if (!loggedIn) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                const cartEmpty = document.getElementById('cart-empty');
+                const cartItems = document.getElementById('cart-items');
+                const cartSummary = document.getElementById('cart-summary');
+                const cartTotalAmount = document.getElementById('cart-total-amount');
+                const currentUser = localStorage.getItem('shopHubName') || localStorage.getItem('shopHubEmail') || 'Guest';
+
+                function getCart() {
+                    const cartKey = `shopHubCart_${currentUser}`;
+                    const stored = localStorage.getItem(cartKey);
+                    return stored ? JSON.parse(stored) : [];
+                }
+
+                function saveCart(cart) {
+                    const cartKey = `shopHubCart_${currentUser}`;
+                    localStorage.setItem(cartKey, JSON.stringify(cart));
+                }
+
+                function updateQuantity(productId, newQuantity) {
+                    if (newQuantity < 1) return;
+                    const cart = getCart();
+                    const item = cart.find(item => item.id === productId);
+                    if (item) {
+                        item.quantity = newQuantity;
+                        saveCart(cart);
+                        renderCart();
+                    }
+                }
+
+                function removeFromCart(productId) {
+                    const cart = getCart();
+                    const updatedCart = cart.filter(item => item.id !== productId);
+                    saveCart(updatedCart);
+                    renderCart();
+                }
+
+                function calculateTotal(cart) {
+                    return cart.reduce((total, item) => {
+                        // Handle Indian Rupee format: remove ₹ symbol and commas
+                        const priceString = item.price.replace('₹', '').replace(/,/g, '');
+                        const price = parseFloat(priceString);
+                        return total + (price * item.quantity);
+                    }, 0);
+                }
+
+                function renderCart() {
+                    const cart = getCart();
+
+                    if (cart.length === 0) {
+                        cartEmpty.classList.remove('hidden');
+                        cartItems.classList.add('hidden');
+                        cartSummary.classList.add('hidden');
+                        return;
+                    }
+
+                    cartEmpty.classList.add('hidden');
+                    cartItems.classList.remove('hidden');
+                    cartSummary.classList.remove('hidden');
+
+                    cartItems.innerHTML = cart.map(item => `
+                        <div class="cart-item" data-id="${item.id}">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <h3 class="cart-item-name">${item.name}</h3>
+                                <p class="cart-item-description">${item.description}</p>
+                                <p class="cart-item-price">${item.price}</p>
+                            </div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
+                                <span class="quantity-value">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                            </div>
+                            <div class="cart-item-subtotal">
+                                <p>₹${(parseFloat(item.price.replace('₹', '').replace(/,/g, '')) * item.quantity).toLocaleString('en-IN')}</p>
+                            </div>
+                            <button class="cart-remove" onclick="removeFromCart('${item.id}')">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    `).join('');
+
+                    cartTotalAmount.textContent = calculateTotal(cart).toLocaleString('en-IN');
+                }
+
+                function proceedToCheckout() {
+                    // Store cart for checkout
+                    localStorage.setItem('checkoutCart', JSON.stringify(getCart()));
+                    window.location.href = 'address.html'
+                    localStorage.setItem('checkoutCart', JSON.stringify(getCart()));
+                    window.location.href = 'address.html';
+                }
+
+                // Make functions global for onclick handlers
+                window.updateQuantity = updateQuantity;
+                window.removeFromCart = removeFromCart;
+                window.proceedToCheckout = proceedToCheckout;
+
+                renderCart();
+            });
+        </script>
+    </body>
+</html>

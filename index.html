@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Sign In</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Welcome to ShopHub</p>
+                        <h1>Sign in to continue</h1>
+                        <p class="auth-subtitle">A secure login experience for returning shoppers. New here? Create your account in seconds.</p>
+                    </div>
+                    <div class="auth-tabs">
+                        <button type="button" class="auth-tab active" data-target="sign-in">Sign In</button>
+                        <button type="button" class="auth-tab" data-target="sign-up">Sign Up</button>
+                    </div>
+                </header>
+
+                <div class="auth-body">
+                    <form id="sign-in-form" class="auth-form">
+                        <div class="auth-field">
+                            <label for="signin-email">Email address</label>
+                            <input id="signin-email" type="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="signin-password">Password</label>
+                            <input id="signin-password" type="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="auth-field captcha-section">
+                            <div class="captcha-box" id="captcha-box"></div>
+                            <button type="button" class="refresh-captcha" id="refresh-captcha">Refresh</button>
+                            <label for="captcha-input">Enter the code above</label>
+                            <input id="captcha-input" type="text" maxlength="6" placeholder="Captcha code" required>
+                        </div>
+                        <div class="auth-actions">
+                            <label class="auth-checkbox">
+                                <input type="checkbox" id="remember-me">
+                                Remember me
+                            </label>
+                            <a href="#" class="auth-link">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="auth-button">Sign In</button>
+                    </form>
+
+                    <form id="sign-up-form" class="auth-form hidden">
+                        <div class="auth-field">
+                            <label for="signup-name">Full name</label>
+                            <input id="signup-name" type="text" placeholder="John Doe" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="signup-email">Email address</label>
+                            <input id="signup-email" type="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="signup-password">Password</label>
+                            <input id="signup-password" type="password" placeholder="Create a password" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="signup-confirm">Confirm password</label>
+                            <input id="signup-confirm" type="password" placeholder="Repeat password" required>
+                        </div>
+                        <button type="submit" class="auth-button">Create Account</button>
+                    </form>
+                </div>
+
+                <footer class="auth-footer">
+                    <p>By signing in you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                </footer>
+            </section>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const usersKey = 'shopHubUsers';
+                const loggedInKey = 'shopHubLoggedIn';
+                const currentUserKey = 'shopHubCurrentUser';
+
+                const loggedIn = localStorage.getItem(loggedInKey) === 'true';
+                if (loggedIn) {
+                    window.location.href = 'home.html';
+                    return;
+                }
+
+                const tabs = document.querySelectorAll('.auth-tab');
+                const signInForm = document.getElementById('sign-in-form');
+                const signUpForm = document.getElementById('sign-up-form');
+                const rememberMe = document.getElementById('remember-me');
+                const captchaBox = document.getElementById('captcha-box');
+                const captchaInput = document.getElementById('captcha-input');
+                const refreshCaptcha = document.getElementById('refresh-captcha');
+
+                let currentCaptcha = '';
+
+                function loadUsers() {
+                    const stored = localStorage.getItem(usersKey);
+                    return stored ? JSON.parse(stored) : {};
+                }
+
+                function saveUsers(users) {
+                    localStorage.setItem(usersKey, JSON.stringify(users));
+                }
+
+                function generateCaptcha() {
+                    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                    let captcha = '';
+                    for (let i = 0; i < 6; i += 1) {
+                        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                    }
+                    currentCaptcha = captcha;
+                    captchaBox.textContent = captcha;
+                }
+
+                function validateCaptcha() {
+                    return captchaInput.value.trim().toUpperCase() === currentCaptcha;
+                }
+
+                generateCaptcha();
+
+                refreshCaptcha.addEventListener('click', generateCaptcha);
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        tabs.forEach(button => button.classList.remove('active'));
+                        tab.classList.add('active');
+
+                        if (tab.dataset.target === 'sign-up') {
+                            signInForm.classList.add('hidden');
+                            signUpForm.classList.remove('hidden');
+                        } else {
+                            signUpForm.classList.add('hidden');
+                            signInForm.classList.remove('hidden');
+                        }
+                    });
+                });
+
+                signInForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+
+                    if (!validateCaptcha()) {
+                        alert('Captcha is incorrect. Please try again.');
+                        generateCaptcha();
+                        captchaInput.value = '';
+                        return;
+                    }
+
+                    const email = document.getElementById('signin-email').value.trim().toLowerCase();
+                    const password = document.getElementById('signin-password').value;
+                    const users = loadUsers();
+
+                    if (!users[email]) {
+                        alert('No account found for this email. Please sign up first.');
+                        return;
+                    }
+
+                    if (users[email].password !== password) {
+                        alert('Invalid email or password. Please try again.');
+                        return;
+                    }
+
+                    localStorage.setItem(loggedInKey, 'true');
+                    localStorage.setItem(currentUserKey, email);
+                    if (rememberMe.checked) {
+                        localStorage.setItem('shopHubRememberMe', 'true');
+                    } else {
+                        localStorage.removeItem('shopHubRememberMe');
+                    }
+
+                    window.location.href = 'home.html';
+                });
+
+                signUpForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+
+                    const name = document.getElementById('signup-name').value.trim();
+                    const email = document.getElementById('signup-email').value.trim().toLowerCase();
+                    const password = document.getElementById('signup-password').value;
+                    const confirm = document.getElementById('signup-confirm').value;
+                    const users = loadUsers();
+
+                    if (!name || !email || !password || !confirm) {
+                        alert('Please complete every field to create your account.');
+                        return;
+                    }
+
+                    if (password !== confirm) {
+                        alert('Passwords do not match. Please check and try again.');
+                        return;
+                    }
+
+                    if (users[email]) {
+                        alert('An account with this email already exists. Please sign in.');
+                        return;
+                    }
+
+                    users[email] = { name, password };
+                    saveUsers(users);
+
+                    localStorage.setItem(loggedInKey, 'true');
+                    localStorage.setItem(currentUserKey, email);
+                    localStorage.setItem('shopHubName', name);
+                    localStorage.setItem('shopHubEmail', email);
+                    window.location.href = 'home.html';
+                });
+            });
+        </script>
+    </body>
+</html>

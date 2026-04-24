@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Shipping Address</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Checkout</p>
+                        <h1>Shipping Address</h1>
+                        <p class="auth-subtitle">Enter your delivery address</p>
+                    </div>
+                </header>
+
+                <div class="auth-body">
+                    <form id="address-form" class="auth-form">
+                        <div class="auth-field">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" id="full-name" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="address-line-1">Address Line 1</label>
+                            <input type="text" id="address-line-1" placeholder="Street address" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="address-line-2">Address Line 2</label>
+                            <input type="text" id="address-line-2" placeholder="Apartment, suite, etc. (optional)">
+                        </div>
+                        <div class="auth-field">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="state">State</label>
+                            <input type="text" id="state" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="pincode">Pincode</label>
+                            <input type="text" id="pincode" required>
+                        </div>
+                        <button type="submit" class="auth-button">Continue to Payment</button>
+                    </form>
+                </div>
+
+                <footer class="auth-footer">
+                    <a href="cart.html" class="auth-link">← Back to Cart</a>
+                </footer>
+            </section>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
+                if (!loggedIn) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                const addressForm = document.getElementById('address-form');
+
+                addressForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const address = {
+                        fullName: document.getElementById('full-name').value,
+                        phone: document.getElementById('phone').value,
+                        addressLine1: document.getElementById('address-line-1').value,
+                        addressLine2: document.getElementById('address-line-2').value,
+                        city: document.getElementById('city').value,
+                        state: document.getElementById('state').value,
+                        pincode: document.getElementById('pincode').value
+                    };
+                    localStorage.setItem('shippingAddress', JSON.stringify(address));
+                    window.location.href = 'payment.html';
+                });
+            });
+        </script>
+    </body>
+</html>

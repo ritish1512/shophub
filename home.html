@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <!--fa-icons-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main>
+            <!--navbar-->
+            <header class="navbar">
+               <div class="menu"><i class="fa-solid fa-bars"></i></div>
+                <div class="head-name">
+                    <p>Welcome to</p>
+                    <h1>Shophub</h1>
+                    <p>Discover amazing products just for you</p>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search here...">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="nav-links">
+                    <a href="home.html"><i class="fa-solid fa-house active"></i></a>
+                    <a href="cart.html"><i class="fa-solid fa-shopping-cart"></i></a>
+                    <a href="wishlist.html"><i class="fa-regular fa-heart"></i></a>
+                    <a href="profile.html"><i class="fa-regular fa-user"></i></a>
+                </div>
+                <div class="auth-actions-header">
+                    <span class="header-user" id="header-user">Guest</span>
+                    <button class="logout-button" id="logout-button">Logout</button>
+                </div>
+                <div class="head-img">
+                    <img src="shop.jpg" alt="ShopHub Logo"  width="43px">
+                </div>
+            </header>
+            <!-- Mobile Sidenav -->
+            <div class="sidenav" id="sidenav">
+                <div class="sidenav-header">
+                    <div class="sidenav-logo">
+                        <img src="shop.jpg" alt="ShopHub Logo" width="40px">
+                        <h2>ShopHub</h2>
+                    </div>
+                    <div class="sidenav-close" id="sidenav-close">
+                        <i class="fa-solid fa-times"></i>
+                    </div>
+                </div>
+                <div class="sidenav-content">
+                    <div class="sidenav-user">
+                        <span id="sidenav-user">Guest</span>
+                    </div>
+                    <nav class="sidenav-nav">
+                        <a href="home.html" class="sidenav-link">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Home</span>
+                        </a>
+                        <a href="cart.html" class="sidenav-link">
+                            <i class="fa-solid fa-shopping-cart"></i>
+                            <span>Cart</span>
+                        </a>
+                        <a href="wishlist.html" class="sidenav-link">
+                            <i class="fa-regular fa-heart"></i>
+                            <span>Wishlist</span>
+                        </a>
+                        <a href="profile.html" class="sidenav-link">
+                            <i class="fa-regular fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </nav>
+                    <div class="sidenav-search">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search here...">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                    </div>
+                    <div class="sidenav-auth">
+                        <button class="logout-button" id="sidenav-logout">Logout</button>
+                    </div>
+                </div>
+            </div>
+            <!--About Section-->
+            <section class="about">
+                <div class="rotate-animation">
+                    <svg viewBox="0 0 100 100" height="100px" width="100px">
+                        <circle cx="50" cy="50" r="48" fill="black" stroke="white" stroke-width="1"/>
+                        <defs>
+                        <path id="circlepath" d="M 50, 50 m -40, 0 a 40,40 0 1,0 80,0 a 40,40 0 1,0 -80,0" fill="transparent"/>
+                        </defs>
+                        <text fill="white" font-size="15px">
+                            <textPath href="#circlepath">
+                                 Scroll down to explore our shop!...
+                            </textPath>
+                        </text>
+                    </svg>
+                </div>
+                <div class="about-text">
+                <h2>Hey! This is <span class="shophub-blink">ShopHub</span></h2>
+                <p>Most popular products at the best prices!</p>
+                <p>Easy to use and navigate!</p>
+                </div>
+                <div class="about-img" width="300px"><img src="shop.jpg" width="300px"></div>
+            </section>
+            <!--categories-->
+            <h3 class="categories-title">Categories</h3>
+            <hr>
+            <section class="categories">
+                <div class="category-item"><a href="#" class="category-link" data-category="all"><div class="category-icon">🛍️</div><h4>All</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Wearables"><div class="category-icon">👕</div><h4>Wearables</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Electronics"><div class="category-icon">💻</div><h4>Electronics</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Stationaries"><div class="category-icon">✏️</div><h4>Stationaries</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Kitchen"><div class="category-icon">🍳</div><h4>Kitchen</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Outdoor"><div class="category-icon">🏕️</div><h4>Outdoor</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Toys"><div class="category-icon">🧸</div><h4>Toys</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Sports"><div class="category-icon">⚽</div><h4>Sports</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Beauty"><div class="category-icon">💄</div><h4>Beauty</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Snacks"><div class="category-icon">🍿</div><h4>Snacks</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Food"><div class="category-icon">🍕</div><h4>Food</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Party"><div class="category-icon">🎉</div><h4>Party</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Travel"><div class="category-icon">✈️</div><h4>Travel</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Home"><div class="category-icon">🏠</div><h4>Home</h4></a></div>
+                <div class="category-item"><a href="#" class="category-link" data-category="Fitness"><div class="category-icon">💪</div><h4>Fitness</h4></a></div>
+            </section>
+            <hr>
+            <!--Why us-->
+            <h2 class="why-us-title">Why us</h2>
+            <section class="why-us">
+                <div class="vertical"></div>
+                <div class="reasons">
+                    <h3 class="r1">24/7 Availability</h3>
+                    <p>Enjoy the convenience of shopping anytime, anywhere with our 24/7 availability.</p>
+                    <h3 class="r2">Competitive Prices</h3>
+                    <p>Explore our wide selection of products at competitive prices.</p> 
+                    <h3 class="r3">Customer Satisfaction</h3>
+                    <p>Read customer reviews and experience our commitment to satisfaction.</p>
+                    <h3 class="r4">Secure Payments</h3>
+                    <p>Shop with confidence knowing your payments are secure and enjoy fast shipping.</p>
+                    <h3 class="r5">Excellent Customer Service</h3>
+                    <p>Experience our hassle-free return policy and excellent customer service.</p>
+                    <h3 class="r6">Exclusive Deals</h3>
+                    <p>Get personalized recommendations and access exclusive deals tailored just for you.</p>
+                </div>
+            </section>
+            <!--Products-->
+            <section class="products-section">
+                <h3 class="products-title">Products</h3>
+                <section class="products">  
+                    <div class="product-card Wearables" data-id="sunglass">
+                        <div class="heart-icon" data-id="sunglass"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfDJ8MHx8fDI%3D" alt="Product Image">
+                        <h3 class="product-name">Sunglass</h3>
+                        <p class="product-description">black color cool glass to make you cool</p>
+                        <p class="product-price">₹199</p>
+                        <button class="add-to-cart-btn" data-id="sunglass">Add to Cart</button>
+                        <button class="Buy-now" data-id="sunglass">Buy Now</button>
+                    </div>
+                    <div class="product-card Sports" data-id="sports-shoes">
+                        <div class="heart-icon" data-id="sports-shoes"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfDJ8MHx8fDI%3D" alt="Product Image">
+                        <h3 class="product-name">Sports shoes</h3>
+                        <p class="product-description">Attractive men shoes with heal foam</p>
+                        <p class="product-price">₹299</p>
+                        <button class="add-to-cart-btn" data-id="sports-shoes">Add to Cart</button>
+                        <button class="Buy-now" data-id="sports-shoes">Buy Now</button>
+                    </div>
+                    <div class="product-card Toys" data-id="toy-car">
+                        <div class="heart-icon" data-id="toy-car"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZHVjdHxlbnwwfDJ8MHx8fDI%3D" alt="Product Image">
+                        <h3 class="product-name">Toy Car</h3>
+                        <p class="product-description">A fun toy car for children,make fun stay happy</p>
+                        <p class="product-price">₹99</p>
+                        <button class="add-to-cart-btn" data-id="toy-car">Add to Cart</button>
+                        <button class="Buy-now" data-id="toy-car">Buy Now</button>
+                    </div>
+                    </div>
+                    <div class="product-card Kitchen" data-id="coffee-seeds">
+                        <div class="heart-icon" data-id="coffee-seeds"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1581191853005-15f8b24f6302?q=80&w=921&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Product Image">
+                        <h3 class="product-name">Coffee seeds</h3>
+                        <p class="product-description">High-quality coffee seeds for the perfect brew</p>
+                        <p class="product-price">₹249</p>
+                        <button class="add-to-cart-btn" data-id="coffee-seeds">Add to Cart</button>
+                        <button class="Buy-now" data-id="coffee-seeds">Buy Now</button>
+                    </div><div class="product-card Electronics" data-id="smartphone-updated">
+                        <div class="heart-icon" data-id="smartphone-updated"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1774070150575-719b13072230?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlY3Ryb25pYyUyMGdhZGdldHxlbnwwfDJ8MHx8fDI%3D" alt="Product Image">
+                        <h3 class="product-name">Smartphone</h3>
+                        <p class="product-description">Latest model with advanced features</p>
+                        <p class="product-price">₹9,999</p>
+                        <button class="add-to-cart-btn" data-id="smartphone-updated">Add to Cart</button>
+                        <button class="Buy-now" data-id="smartphone-updated">Buy Now</button>
+                    </div>                    <div class="product-card Electronics" data-id="mp3-player-updated">
+                        <div class="heart-icon" data-id="mp3-player-updated"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1658745916137-cf2aac7e2ac0?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2h1dHRlciUyMHJlbW90ZSUyMGNvbnRyb2x8ZW58MHwyfDB8fHwy" alt="Product Image">
+                        <h3 class="product-name">Mp3 Player</h3>
+                        <p class="product-description">Portable music player with high-quality sound</p>
+                        <p class="product-price">₹999</p>
+                        <button class="add-to-cart-btn" data-id="mp3-player-updated">Add to Cart</button>
+                        <button class="Buy-now" data-id="mp3-player-updated">Buy Now</button>
+                    </div><div class="product-card Electronics" data-id="camera-final">
+                        <div class="heart-icon" data-id="camera-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://media.istockphoto.com/id/185278433/photo/black-digital-slr-camera-in-a-white-background.webp?a=1&b=1&s=612x612&w=0&k=20&c=KzcMVDbkkSQq6dawuGu4vgQ5ohv-KVcTmuNPIsf_tKs=" alt="Product Image">
+                        <h3 class="product-name">Camera</h3>
+                        <p class="product-description">High-quality digital camera with advanced features</p>
+                        <p class="product-price">₹29,999</p>
+                        <button class="add-to-cart-btn" data-id="camera-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="camera-final">Buy Now</button>
+                    </div><div class="product-card Electronics" data-id="laptop-final">
+                        <div class="heart-icon" data-id="laptop-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1606248897732-2c5ffe759c04?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGFwdG9wfGVufDB8MnwwfHx8Mg%3D%3D" alt="Product Image">
+                        <h3 class="product-name">Laptop</h3>
+                        <p class="product-description">High-performance laptop for work and entertainment</p>
+                        <p class="product-price">₹59,999</p>
+                        <button class="add-to-cart-btn" data-id="laptop-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="laptop-final">Buy Now</button>
+                    </div><div class="product-card Stationaries" data-id="pencil-final">
+                        <div class="heart-icon" data-id="pencil-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1634808420673-a1852e29ba65?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cGVuY2lsc3xlbnwwfDJ8MHx8fDI%3D" alt="Product Image">
+                        <h3 class="product-name">Pencil(10)</h3>
+                        <p class="product-description">Smooth and dark for beautiful handwritting</p>
+                        <p class="product-price">₹99</p>
+                        <button class="add-to-cart-btn" data-id="pencil-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="pencil-final">Buy Now</button>
+                    </div><div class="product-card Kitchen" data-id="vessels-final">
+                        <div class="heart-icon" data-id="vessels-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1592156553722-a2335059951a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0Y2hlbiUyMHZlc3NlbHN8ZW58MHwyfDB8fHwy" alt="Product Image">
+                        <h3 class="product-name">Vessels</h3>
+                        <p class="product-description">Strong and non stick vessels,easy to use and clean</p>
+                        <p class="product-price">₹1,999</p>
+                        <button class="add-to-cart-btn" data-id="vessels-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="vessels-final">Buy Now</button>
+                    </div><div class="product-card Outdoor" data-id="umbrella-final">
+                        <div class="heart-icon" data-id="umbrella-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1720018691236-46ff5372a7dd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHVtYnJlbGxhfGVufDB8MnwwfHx8Mg%3D%3Dg" alt="Product Image">
+                        <h3 class="product-name">Umbrella</h3>
+                        <p class="product-description">Protect yourself from the rain,stay neat and clean</p>
+                        <p class="product-price">₹999</p>
+                        <button class="add-to-cart-btn" data-id="umbrella-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="umbrella-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Sports" data-id="tennis-kit-final">
+                        <div class="heart-icon" data-id="tennis-kit-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1512412046876-f386342eddb3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGVubmlzfGVufDB8MnwwfHx8Mg%3D%3D" alt="Product Image">
+                        <h3 class="product-name">Tennis Kit</h3>
+                        <p class="product-description">High-quality tennis equipment for all players</p>
+                        <p class="product-price">₹699</p>
+                        <button class="add-to-cart-btn" data-id="tennis-kit-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="tennis-kit-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Snacks" data-id="pop-corn-final">
+                        <div class="heart-icon" data-id="pop-corn-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1622732776612-1232b64eb1a3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cG9wY29ybnxlbnwwfDJ8MHx8fDI%3D" alt="Product Image">
+                        <h3 class="product-name">Pop Corn</h3>
+                        <p class="product-description">Ready-made pop corn for easy perfect snacks</p>
+                        <p class="product-price">₹199</p>
+                        <button class="add-to-cart-btn" data-id="pop-corn-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="pop-corn-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Food" data-id="oats-final">
+                        <div class="heart-icon" data-id="oats-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1756457168426-b57f280f300d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG9hdHN8ZW58MHwyfDB8fHwy" alt="Product Image">
+                        <h3 class="product-name">Oats</h3>
+                        <p class="product-description">Healthy breakfast option for a nutritious start to your day</p>
+                        <p class="product-price">₹349</p>
+                        <button class="add-to-cart-btn" data-id="oats-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="oats-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Party" data-id="party-lights-final">
+                        <div class="heart-icon" data-id="party-lights-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1774296785946-9d4b887b8c91?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBhcnR5JTIwbGlnaHR8ZW58MHwyfDB8fHwy" alt="Product Image">
+                        <h3 class="product-name">Party LIghts</h3>
+                        <p class="product-description">Colorful lights for your party needs</p>
+                        <p class="product-price">₹499</p>
+                        <button class="add-to-cart-btn" data-id="party-lights-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="party-lights-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Electronics Party" data-id="loud-speaker-final">
+                        <div class="heart-icon" data-id="loud-speaker-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1692351014024-97edd83a7b5a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3BlYWtlcnxlbnwwfDJ8MHx8fDI%3D" alt="Product Image">
+                        <h3 class="product-name">Loud Speaker</h3>
+                        <p class="product-description">High quality,durablity,portable speaker</p>
+                        <p class="product-price">₹899</p>
+                        <button class="add-to-cart-btn" data-id="loud-speaker-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="loud-speaker-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Travel" data-id="handy-bag-final">
+                        <div class="heart-icon" data-id="handy-bag-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1567755997194-f92b5dc9106f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dHJhdmVsJTIwYmFnfGVufDB8MnwwfHx8Mg%3D%3D" alt="Product Image">
+                        <h3 class="product-name">Handy Bag</h3>
+                        <p class="product-description">Can hold upto 50kg,highly durable and portable</p>
+                        <p class="product-price">₹1,999</p>
+                        <button class="add-to-cart-btn" data-id="handy-bag-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="handy-bag-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Travel" data-id="travel-bag-final">
+                        <div class="heart-icon" data-id="travel-bag-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1652281845572-ac8d9e85606d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dHJhdmVsJTIwYmFnfGVufDB8MnwwfHx8Mg%3D%3D" alt="Product Image">
+                        <h3 class="product-name">Travel Bag</h3>
+                        <p class="product-description">Best suitable for travel,tour,trip,hometown visit</p>
+                        <p class="product-price">₹499</p>
+                        <button class="add-to-cart-btn" data-id="travel-bag-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="travel-bag-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Fitness" data-id="dumbell-final">
+                        <div class="heart-icon" data-id="dumbell-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1559949557-7d0ac3e655f2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHdlaWdodHN8ZW58MHwyfDB8fHwy" alt="Product Image">
+                        <h3 class="product-name">Dumbell</h3>
+                        <p class="product-description">Stay fit and healthy with workout,lift heavy and stay hard</p>
+                        <p class="product-price">₹399</p>
+                        <button class="add-to-cart-btn" data-id="dumbell-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="dumbell-final">Buy Now</button>
+                    </div>
+                    </div><div class="product-card Home" data-id="welcome-mat-final">
+                        <div class="heart-icon" data-id="welcome-mat-final"><i class="fa-regular fa-heart"></i></div>
+                        <img class="product-image" src="https://images.unsplash.com/photo-1583674767461-99d1a9850069?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWF0fGVufDB8MnwwfHx8Mg%3D%3D" alt="Product Image">
+                        <h3 class="product-name">Welcome Mat</h3>
+                        <p class="product-description">Welcome your guests in style with this beautiful mat</p>
+                        <p class="product-price">₹299</p>
+                        <button class="add-to-cart-btn" data-id="welcome-mat-final">Add to Cart</button>
+                        <button class="Buy-now" data-id="welcome-mat-final">Buy Now</button>
+                    </div>
+                    <!-- Add more product cards as needed -->
+                </section>
+            </section>
+            <footer>
+                <p> &copy; 2024 ShopHub. All rights reserved.</p>
+                <section class="contact">
+                    <h3>For queries Contact:</h3>
+                    <p>Email:<a href="">ritish1907@gmail.com</a></p>
+                </section>
+                <section class="web-description">
+                    <h3>This Website purely for the illustration purpose only</h3>
+                    <p>This is the website that is made to project my skill and knowledge in the web development this website has every important features like <strong>SEO || Completely mobile responsive || 4 to 5 pages with many details that can be added in the future also!...</strong> </p>
+                </section>
+            </footer>
+        </main>
+        <button class="back-to-top" id="back-to-top" title="Back to top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <script src="script.js"></script>
+    </body>
+</html>

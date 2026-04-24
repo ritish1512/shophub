@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Review Order</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card review-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Checkout</p>
+                        <h1>Review Your Order</h1>
+                        <p class="auth-subtitle">Please review your order details before payment</p>
+                    </div>
+                </header>
+
+                <div class="review-body">
+                    <div id="order-items" class="order-items">
+                        <!-- Order items will be dynamically added here -->
+                    </div>
+
+                    <div class="order-summary">
+                        <div class="order-total">
+                            <span>Total: ₹<span id="order-total-amount">0</span></span>
+                        </div>
+                    </div>
+
+                    <div class="order-address">
+                        <h3>Shipping Address</h3>
+                        <div id="shipping-address"></div>
+                    </div>
+
+                    <div class="order-payment">
+                        <h3>Payment Method</h3>
+                        <div id="payment-method"></div>
+                    </div>
+
+                    <button class="auth-button" onclick="placeOrder()">Place Order</button>
+                </div>
+
+                <footer class="auth-footer">
+                    <a href="payment.html" class="auth-link">← Back to Payment</a>
+                </footer>
+            </section>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
+                if (!loggedIn) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                const orderItems = document.getElementById('order-items');
+                const orderTotalAmount = document.getElementById('order-total-amount');
+                const shippingAddressDiv = document.getElementById('shipping-address');
+                const paymentMethodDiv = document.getElementById('payment-method');
+
+                let orderItemsData = [];
+                let total = 0;
+
+                // Check if it's buy now or cart checkout
+                const buyNowProduct = localStorage.getItem('buyNowProduct');
+                const checkoutCart = localStorage.getItem('checkoutCart');
+
+                if (buyNowProduct) {
+                    const product = JSON.parse(buyNowProduct);
+                    orderItemsData = [{ ...product, quantity: 1 }];
+                    total = parseFloat(product.price.replace('₹', '').replace(/,/g, ''));
+                } else if (checkoutCart) {
+                    orderItemsData = JSON.parse(checkoutCart);
+                    total = orderItemsData.reduce((sum, item) => {
+                        const price = parseFloat(item.price.replace('₹', '').replace(/,/g, ''));
+                        return sum + (price * item.quantity);
+                    }, 0);
+                }
+
+                // Render order items
+                orderItems.innerHTML = orderItemsData.map(item => `
+                    <div class="order-item">
+                        <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                        <div class="order-item-details">
+                            <h4>${item.name}</h4>
+                            <p>${item.description}</p>
+                            <p>Quantity: ${item.quantity}</p>
+                            <p>Price: ${item.price}</p>
+                        </div>
+                        <div class="order-item-subtotal">
+                            ₹${(parseFloat(item.price.replace('₹', '').replace(/,/g, '')) * item.quantity).toLocaleString('en-IN')}
+                        </div>
+                    </div>
+                `).join('');
+
+                orderTotalAmount.textContent = total.toLocaleString('en-IN');
+
+                // Display shipping address
+                const address = JSON.parse(localStorage.getItem('shippingAddress'));
+                shippingAddressDiv.innerHTML = `
+                    <p>${address.fullName}</p>
+                    <p>${address.phone}</p>
+                    <p>${address.addressLine1}${address.addressLine2 ? ', ' + address.addressLine2 : ''}</p>
+                    <p>${address.city}, ${address.state} - ${address.pincode}</p>
+                `;
+
+                // Display payment method
+                const payment = JSON.parse(localStorage.getItem('paymentDetails'));
+                paymentMethodDiv.innerHTML = `
+                    <p>Card ending in ****${payment.cardNumber.slice(-4)}</p>
+                    <p>${payment.cardHolder}</p>
+                `;
+
+                window.placeOrder = () => {
+                    // Generate order ID
+                    const orderId = 'ORD' + Date.now();
+                    const order = {
+                        id: orderId,
+                        items: orderItemsData,
+                        total: total,
+                        address: address,
+                        payment: payment,
+                        date: new Date().toISOString()
+                    };
+
+                    // Store order
+                    localStorage.setItem('lastOrder', JSON.stringify(order));
+
+                    // Send email (simulate with mailto)
+                    const emailBody = `
+Order ID: ${orderId}
+Date: ${new Date().toLocaleString()}
+
+Items:
+${orderItemsData.map(item => `${item.name} x${item.quantity} - ${item.price}`).join('\n')}
+
+Total: ₹${total.toLocaleString('en-IN')}
+
+Shipping Address:
+${address.fullName}
+${address.phone}
+${address.addressLine1}${address.addressLine2 ? '\n' + address.addressLine2 : ''}
+${address.city}, ${address.state} - ${address.pincode}
+
+Payment: Card ending ****${payment.cardNumber.slice(-4)}
+                    `.trim();
+
+                    const mailtoLink = `mailto:rdesi96@jnn.edu.in?subject=New Order ${orderId}&body=${encodeURIComponent(emailBody)}`;
+                    window.open(mailtoLink);
+
+                    // Clear checkout data
+                    localStorage.removeItem('buyNowProduct');
+                    localStorage.removeItem('checkoutCart');
+                    localStorage.removeItem('shippingAddress');
+                    localStorage.removeItem('paymentDetails');
+
+                    // Redirect to confirmation
+                    window.location.href = 'confirm.html';
+                };
+            });
+        </script>
+    </body>
+</html>

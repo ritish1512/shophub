@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Wishlist</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card wishlist-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Your favorites</p>
+                        <h1>My Wishlist</h1>
+                        <p class="auth-subtitle">Items you've saved for later. Add them to cart or remove from wishlist.</p>
+                    </div>
+                </header>
+
+                <div class="wishlist-body">
+                    <div id="wishlist-empty" class="wishlist-empty">
+                        <i class="fa-regular fa-heart"></i>
+                        <h3>Your wishlist is empty</h3>
+                        <p>Start browsing and add items you love to your wishlist!</p>
+                        <a href="home.html" class="auth-button">Browse Products</a>
+                    </div>
+
+                    <div id="wishlist-items" class="wishlist-items hidden">
+                        <!-- Wishlist items will be dynamically added here -->
+                    </div>
+                </div>
+
+                <footer class="auth-footer">
+                    <a href="home.html" class="auth-link">← Back to Shopping</a>
+                </footer>
+            </section>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
+                if (!loggedIn) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                const wishlistEmpty = document.getElementById('wishlist-empty');
+                const wishlistItems = document.getElementById('wishlist-items');
+                const currentUser = localStorage.getItem('shopHubName') || localStorage.getItem('shopHubEmail') || 'Guest';
+
+                function getWishlist() {
+                    const wishlistKey = `shopHubWishlist_${currentUser}`;
+                    const stored = localStorage.getItem(wishlistKey);
+                    return stored ? JSON.parse(stored) : [];
+                }
+
+                function saveWishlist(wishlist) {
+                    const wishlistKey = `shopHubWishlist_${currentUser}`;
+                    localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
+                }
+
+                function removeFromWishlist(productId) {
+                    const wishlist = getWishlist();
+                    const updatedWishlist = wishlist.filter(item => item.id !== productId);
+                    saveWishlist(updatedWishlist);
+                    renderWishlist();
+                }
+
+                function addToCart(product) {
+                    const cartKey = `shopHubCart_${currentUser}`;
+                    const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+                    const existingItem = cart.find(item => item.id === product.id);
+
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({ ...product, quantity: 1 });
+                    }
+
+                    localStorage.setItem(cartKey, JSON.stringify(cart));
+                    alert(`${product.name} added to cart!`);
+                }
+
+                function renderWishlist() {
+                    const wishlist = getWishlist();
+
+                    if (wishlist.length === 0) {
+                        wishlistEmpty.classList.remove('hidden');
+                        wishlistItems.classList.add('hidden');
+                        return;
+                    }
+
+                    wishlistEmpty.classList.add('hidden');
+                    wishlistItems.classList.remove('hidden');
+
+                    wishlistItems.innerHTML = wishlist.map(item => `
+                        <div class="wishlist-item" data-id="${item.id}">
+                            <img src="${item.image}" alt="${item.name}" class="wishlist-item-image">
+                            <div class="wishlist-item-details">
+                                <h3 class="wishlist-item-name">${item.name}</h3>
+                                <p class="wishlist-item-description">${item.description}</p>
+                                <p class="wishlist-item-price">${item.price}</p>
+                            </div>
+                            <div class="wishlist-item-actions">
+                                <button class="wishlist-add-to-cart" onclick="addToCartFromWishlist('${item.id}')">
+                                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                                </button>
+                                <button class="wishlist-remove" onclick="removeFromWishlist('${item.id}')">
+                                    <i class="fa-solid fa-trash"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Make functions global for onclick handlers
+                window.removeFromWishlist = removeFromWishlist;
+                window.addToCartFromWishlist = (productId) => {
+                    const wishlist = getWishlist();
+                    const product = wishlist.find(item => item.id === productId);
+                    if (product) {
+                        addToCart(product);
+                    }
+                };
+
+                renderWishlist();
+            });
+        </script>
+    </body>
+</html>

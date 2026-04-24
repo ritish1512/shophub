@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Payment Details</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Checkout</p>
+                        <h1>Payment Details</h1>
+                        <p class="auth-subtitle">Enter your payment information</p>
+                    </div>
+                </header>
+
+                <div class="auth-body">
+                    <form id="payment-form" class="auth-form">
+                        <div class="auth-field">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" placeholder="MM/YY" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123" required>
+                        </div>
+                        <div class="auth-field">
+                            <label for="card-holder">Card Holder Name</label>
+                            <input type="text" id="card-holder" required>
+                        </div>
+                        <button type="submit" class="auth-button">Review Order</button>
+                    </form>
+                </div>
+
+                <footer class="auth-footer">
+                    <a href="address.html" class="auth-link">← Back to Address</a>
+                </footer>
+            </section>
+        </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
+                if (!loggedIn) {
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                const paymentForm = document.getElementById('payment-form');
+
+                paymentForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const payment = {
+                        cardNumber: document.getElementById('card-number').value,
+                        expiryDate: document.getElementById('expiry-date').value,
+                        cvv: document.getElementById('cvv').value,
+                        cardHolder: document.getElementById('card-holder').value
+                    };
+                    localStorage.setItem('paymentDetails', JSON.stringify(payment));
+                    window.location.href = 'review.html';
+                });
+            });
+        </script>
+    </body>
+</html>

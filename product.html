@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ShopHub | Product Details</title>
+        <link rel="icon" href="shop.jpg" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+    <body>
+        <main class="auth-page">
+            <section class="auth-card product-detail-card">
+                <header class="auth-header">
+                    <div>
+                        <p class="eyebrow">Product Details</p>
+                        <h1 id="product-title">Product Title</h1>
+                        <p class="auth-subtitle" id="product-category">Category</p>
+                    </div>
+                </header>
+
+                <div class="product-detail-body">
+                    <div class="product-detail-image-wrapper">
+                        <img id="product-image" class="product-detail-image" src="" alt="Product Image">
+                    </div>
+                    <div class="product-detail-info">
+                        <p id="product-description" class="product-detail-description"></p>
+                        <p id="product-price" class="product-detail-price"></p>
+                        <div class="product-detail-actions">
+                            <button id="detail-add-to-cart" class="add-to-cart-btn">Add to Cart</button>
+                            <button id="detail-buy-now" class="buy-now-btn">Buy Now</button>
+                            <button id="detail-wishlist-button" class="wishlist-button"><i class="fa-regular fa-heart"></i> Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="related-products-section hidden" id="related-products-section">
+                    <h2>Related Products</h2>
+                    <div class="related-products-list" id="related-products-list"></div>
+                </section>
+
+                <footer class="auth-footer">
+                    <a href="home.html" class="auth-link">← Back to Shopping</a>
+                </footer>
+            </section>
+        </main>
+
+        <script src="products.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = urlParams.get('id');
+                const product = window.productCatalog && window.productCatalog[productId];
+                const title = document.getElementById('product-title');
+                const category = document.getElementById('product-category');
+                const image = document.getElementById('product-image');
+                const description = document.getElementById('product-description');
+                const price = document.getElementById('product-price');
+                const addToCartButton = document.getElementById('detail-add-to-cart');
+                const buyNowButton = document.getElementById('detail-buy-now');
+                const wishlistButton = document.getElementById('detail-wishlist-button');
+
+                function redirectToHome() {
+                    window.location.href = 'home.html';
+                }
+
+                if (!product) {
+                    title.textContent = 'Product not found';
+                    category.textContent = '';
+                    description.textContent = 'The product you are looking for does not exist or has been removed.';
+                    price.textContent = '';
+                    addToCartButton.disabled = true;
+                    wishlistButton.disabled = true;
+                    return;
+                }
+
+                title.textContent = product.name;
+                category.textContent = product.category;
+                image.src = product.image;
+                image.alt = product.name;
+                description.textContent = product.description;
+                price.textContent = product.price;
+
+                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
+                const currentUser = localStorage.getItem('shopHubName') || localStorage.getItem('shopHubEmail') || 'Guest';
+
+                function getWishlist() {
+                    const wishlistKey = `shopHubWishlist_${currentUser}`;
+                    const stored = localStorage.getItem(wishlistKey);
+                    return stored ? JSON.parse(stored) : [];
+                }
+
+                function saveWishlist(wishlist) {
+                    const wishlistKey = `shopHubWishlist_${currentUser}`;
+                    localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
+                }
+
+                function updateWishlistButton() {
+                    const wishlist = getWishlist();
+                    const isInWishlist = wishlist.some(item => item.id === product.id);
+                    wishlistButton.classList.toggle('active', isInWishlist);
+                    wishlistButton.innerHTML = isInWishlist ? '<i class="fa-solid fa-heart"></i> Remove from Wishlist' : '<i class="fa-regular fa-heart"></i> Add to Wishlist';
+                }
+
+                function addToCart() {
+                    if (!loggedIn) {
+                        window.location.href = 'index.html';
+                        return;
+                    }
+
+                    const cartKey = `shopHubCart_${currentUser}`;
+                    const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+                    const existingItem = cart.find(item => item.id === product.id);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({ ...product, quantity: 1 });
+                    }
+                    localStorage.setItem(cartKey, JSON.stringify(cart));
+                    alert(`${product.name} added to cart!`);
+                }
+
+                function toggleWishlist() {
+                    if (!loggedIn) {
+                        window.location.href = 'index.html';
+                        return;
+                    }
+
+                    const wishlist = getWishlist();
+                    const existingItem = wishlist.find(item => item.id === product.id);
+                    if (existingItem) {
+                        saveWishlist(wishlist.filter(item => item.id !== product.id));
+                        alert(`${product.name} removed from wishlist!`);
+                    } else {
+                        wishlist.push(product);
+                        saveWishlist(wishlist);
+                        alert(`${product.name} added to wishlist!`);
+                    }
+                    updateWishlistButton();
+                }
+function buyNow() {
+                    if (!loggedIn) {
+                        window.location.href = 'index.html';
+                        return;
+                    }
+                    // Store the product for checkout
+                    localStorage.setItem('buyNowProduct', JSON.stringify(product));
+                    window.location.href = 'address.html';
+                }
+
+                addToCartButton.addEventListener('click', addToCart);
+                buyNowButton.addEventListener('click', buyNow
+                addToCartButton.addEventListener('click', addToCart);
+                wishlistButton.addEventListener('click', toggleWishlist);
+
+                function getRelatedProducts(category, excludeId) {
+                    return Object.values(window.productCatalog || {})
+                        .filter(item => item.category === category && item.id !== excludeId)
+                        .slice(0, 4);
+                }
+
+                function renderRelatedProducts() {
+                    const relatedSection = document.getElementById('related-products-section');
+                    const relatedList = document.getElementById('related-products-list');
+                    const relatedProducts = getRelatedProducts(product.category, product.id);
+
+                    if (!relatedProducts.length) {
+                        relatedSection.classList.add('hidden');
+                        return;
+                    }
+
+                    relatedSection.classList.remove('hidden');
+                    relatedList.innerHTML = relatedProducts.map(item => `
+                        <div class="related-product-card" data-id="${item.id}">
+                            <img src="${item.image}" alt="${item.name}" class="related-product-image">
+                            <div class="related-product-meta">
+                                <h3>${item.name}</h3>
+                                <p>${item.price}</p>
+                            </div>
+                            <button class="related-product-button" data-id="${item.id}">View</button>
+                        </div>
+                    `).join('');
+
+                    relatedList.querySelectorAll('.related-product-button').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            const id = event.currentTarget.getAttribute('data-id');
+                            window.location.href = `product.html?id=${encodeURIComponent(id)}`;
+                        });
+                    });
+                }
+
+                updateWishlistButton();
+                renderRelatedProducts();
+            });
+        </script>
+    </body>
+</html>
