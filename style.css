@@ -560,7 +560,7 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.9);
+    background: transparent;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -568,7 +568,7 @@ header{
 }
 .heart-icon:hover{
     transform: scale(1.1);
-    background: rgba(255,255,255,1);
+    background: transparent;
 }
 .heart-icon.active i{
     color: #ff6f61;
@@ -888,6 +888,7 @@ footer .web-description{
     visibility: visible;
 }
 .back-to-top i{
+    background: transparent;
     display: block;
     margin: 0 auto;
 }
