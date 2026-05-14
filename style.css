@@ -869,7 +869,7 @@ footer .web-description{
     height: 50px;
     border: none;
     border-radius: 50%;
-    background: transparent;
+    background: orange;
     color: white;
     font-size: 1.2rem;
     cursor: pointer;
