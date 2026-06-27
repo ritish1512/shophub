@@ -51,12 +51,6 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
-                if (!loggedIn) {
-                    window.location.href = 'index.html';
-                    return;
-                }
-
                 const orderItems = document.getElementById('order-items');
                 const orderTotalAmount = document.getElementById('order-total-amount');
                 const shippingAddressDiv = document.getElementById('shipping-address');

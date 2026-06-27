@@ -43,26 +43,22 @@
                             </div>
                         </div>
                     </div>
-                    <a href="home.html" class="auth-button">Continue Shopping</a>
+                    <a href="index.html" class="auth-button">Continue Shopping</a>
                 </div>
 
                 <footer class="auth-footer">
-                    <a href="home.html" class="auth-link">← Back to Home</a>
+                    <a href="index.html" class="auth-link">← Back to Home</a>
                 </footer>
             </section>
         </main>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
-                if (!loggedIn) {
-                    window.location.href = 'index.html';
-                    return;
-                }
+                
 
                 const order = JSON.parse(localStorage.getItem('lastOrder'));
                 if (order) {
-                    document.getElementById('order-id').textContent = `Order ID: ${order.id}`;
+                  document.getElementById('order-id').textContent = `Order ID: ${order.id}`;
                 }
             });
         </script>

@@ -24,7 +24,7 @@
                         <i class="fa-regular fa-heart"></i>
                         <h3>Your wishlist is empty</h3>
                         <p>Start browsing and add items you love to your wishlist!</p>
-                        <a href="home.html" class="auth-button">Browse Products</a>
+                        <a href="index.html" class="auth-button">Browse Products</a>
                     </div>
 
                     <div id="wishlist-items" class="wishlist-items hidden">
@@ -33,18 +33,13 @@
                 </div>
 
                 <footer class="auth-footer">
-                    <a href="home.html" class="auth-link">← Back to Shopping</a>
+                    <a href="index.html" class="auth-link">← Back to Shopping</a>
                 </footer>
             </section>
         </main>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
-                if (!loggedIn) {
-                    window.location.href = 'index.html';
-                    return;
-                }
 
                 const wishlistEmpty = document.getElementById('wishlist-empty');
                 const wishlistItems = document.getElementById('wishlist-items');

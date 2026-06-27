@@ -61,12 +61,6 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
-                if (!loggedIn) {
-                    window.location.href = 'index.html';
-                    return;
-                }
-
                 const addressForm = document.getElementById('address-form');
 
                 addressForm.addEventListener('submit', (e) => {

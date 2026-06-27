@@ -24,7 +24,7 @@
                         <i class="fa-solid fa-cart-shopping"></i>
                         <h3>Your cart is empty</h3>
                         <p>Add some products to get started!</p>
-                        <a href="home.html" class="auth-button">Browse Products</a>
+                        <a href="index.html" class="auth-button">Browse Products</a>
                     </div>
 
                     <div id="cart-items" class="cart-items hidden">
@@ -42,34 +42,26 @@
                 </div>
 
                 <footer class="auth-footer">
-                    <a href="home.html" class="auth-link">← Continue Shopping</a>
+                    <a href="index.html" class="auth-link">← Continue Shopping</a>
                 </footer>
             </section>
         </main>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
-                if (!loggedIn) {
-                    window.location.href = 'index.html';
-                    return;
-                }
 
                 const cartEmpty = document.getElementById('cart-empty');
                 const cartItems = document.getElementById('cart-items');
                 const cartSummary = document.getElementById('cart-summary');
                 const cartTotalAmount = document.getElementById('cart-total-amount');
-                const currentUser = localStorage.getItem('shopHubName') || localStorage.getItem('shopHubEmail') || 'Guest';
 
                 function getCart() {
-                    const cartKey = `shopHubCart_${currentUser}`;
-                    const stored = localStorage.getItem(cartKey);
+                    const stored = localStorage.getItem('shopHubCart');
                     return stored ? JSON.parse(stored) : [];
                 }
 
                 function saveCart(cart) {
-                    const cartKey = `shopHubCart_${currentUser}`;
-                    localStorage.setItem(cartKey, JSON.stringify(cart));
+                    localStorage.setItem('shopHubCart', JSON.stringify(cart));
                 }
 
                 function updateQuantity(productId, newQuantity) {
@@ -139,9 +131,6 @@
                 }
 
                 function proceedToCheckout() {
-                    // Store cart for checkout
-                    localStorage.setItem('checkoutCart', JSON.stringify(getCart()));
-                    window.location.href = 'address.html'
                     localStorage.setItem('checkoutCart', JSON.stringify(getCart()));
                     window.location.href = 'address.html';
                 }

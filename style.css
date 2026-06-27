@@ -31,6 +31,7 @@ header{
 }
 .menu{
     display: none;
+    background-color: transparent;
 }
 .search-box{
     width: 300px;
@@ -56,10 +57,12 @@ header{
 }
 .head-name p{
     font-size: 14px;
+    background-color: transparent;
 }
 .head-name h1{
     font-size: 32px;
     color: #ff6f61;
+    background-color: transparent;
 }
 .head-img{
     margin-left: 10px;
@@ -460,6 +463,7 @@ header{
 }
 .product-card .product-description{
     color: #98a7d3;
+    background-color: transparent;
     font-size: 0.9rem;
     line-height: 1.4;
     margin-bottom: 15px;
@@ -467,6 +471,7 @@ header{
 }
 .product-card .product-price{
     font-size: 1.3rem;
+    background-color: transparent;
     font-weight: 700;
     color: #ff6f61;
     margin-bottom: 15px;
@@ -560,7 +565,6 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -568,14 +572,9 @@ header{
 }
 .heart-icon:hover{
     transform: scale(1.1);
-    background: transparent;
 }
 .heart-icon.active i{
     color: #ff6f61;
-}
-.heart-icon.active{
-    background: #ff6f61;
-    color: white;
 }
 .heart-icon i{
     font-size: 16px;
@@ -783,6 +782,8 @@ footer .web-description{
     color: #98a7d3;
     font-size: 0.95rem;
     line-height: 1.7;
+    height: fit-content;
+    border-radius: 14px;
 }
 .auth-footer a{
     color: #dcdfff;
@@ -869,8 +870,6 @@ footer .web-description{
     height: 50px;
     border: none;
     border-radius: 50%;
-    background: orange;
-    color: white;
     font-size: 1.2rem;
     cursor: pointer;
     opacity: 0;
@@ -888,7 +887,6 @@ footer .web-description{
     visibility: visible;
 }
 .back-to-top i{
-    background: transparent;
     display: block;
     margin: 0 auto;
 }
@@ -922,6 +920,7 @@ footer .web-description{
 .wishlist-items{
     display: grid;
     gap: 20px;
+    background-color: transparent;
 }
 .wishlist-item{
     display: grid;
@@ -932,6 +931,7 @@ footer .web-description{
     border-radius: 18px;
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
+    background-color: transparent;
 }
 .wishlist-item-image{
     width: 80px;
@@ -942,16 +942,19 @@ footer .web-description{
 .wishlist-item-details{
     display: grid;
     gap: 8px;
+    background-color: transparent;
 }
 .wishlist-item-name{
     font-size: 1.1rem;
     color: #fff;
     margin: 0;
+    background-color: transparent;
 }
 .wishlist-item-description{
     color: #98a7d3;
     font-size: 0.9rem;
     margin: 0;
+    background-color: transparent;
 }
 .wishlist-item-price{
     font-size: 1.1rem;
@@ -963,6 +966,7 @@ footer .web-description{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: transparent;
 }
 .wishlist-add-to-cart{
     padding: 10px 16px;
@@ -981,7 +985,7 @@ footer .web-description{
     padding: 10px 16px;
     border: 1px solid rgba(255,255,255,0.18);
     border-radius: 12px;
-    background: transparent;
+    background: rgba(255,255,255,0.08);
     color: #fff;
     font-size: 0.9rem;
     cursor: pointer;
@@ -1039,26 +1043,31 @@ footer .web-description{
 }
 .cart-item-details{
     display: grid;
+    background-color: transparent;
     gap: 8px;
 }
 .cart-item-name{
     font-size: 1.1rem;
+    background-color: transparent;
     color: #fff;
     margin: 0;
 }
 .cart-item-description{
     color: #98a7d3;
+    background-color: transparent;
     font-size: 0.9rem;
     margin: 0;
 }
 .cart-item-price{
     font-size: 1.1rem;
     color: #ff6f61;
+    background-color: transparent;
     font-weight: 600;
     margin: 0;
 }
 .cart-item-quantity{
     display: flex;
+    background-color: transparent;
     align-items: center;
     gap: 12px;
 }
@@ -1072,6 +1081,7 @@ footer .web-description{
     font-size: 1.2rem;
     cursor: pointer;
     transition: background 0.2s ease;
+    background-color: transparent;
 }
 .quantity-btn:hover{
     background: rgba(255,255,255,0.16);
@@ -1084,12 +1094,14 @@ footer .web-description{
 }
 .cart-item-subtotal{
     text-align: right;
+    background-color: transparent;
 }
 .cart-item-subtotal p{
     font-size: 1.1rem;
     color: #ff6f61;
     font-weight: 600;
     margin: 0;
+    background-color: transparent;
 }
 .cart-remove{
     padding: 8px;
@@ -1116,6 +1128,13 @@ footer .web-description{
     font-size: 1.3rem;
     color: #fff;
     font-weight: 600;
+    background-color: transparent;
+}
+.cart-total span{
+    font-size: 1.5rem;
+    color: #ff6f61;
+    font-weight: 700;
+    background-color: transparent;
 }
 .checkout-button{
     padding: 14px 24px;
@@ -1296,17 +1315,36 @@ footer .web-description{
         padding: 12px;
         flex-wrap: wrap;
         gap: 12px;
+        height: fit-content;
+    }
+    .navbar {
+        display:grid;
+        grid-template-columns: 1fr 9fr;
+        align-items: center;
+        height: fit-content;
+        padding: 0 0 0 10;
+        margin: 0;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     .menu {
-        display: block !important;
+        display: inline !important;
+        grid-column: auto;
         font-size: 24px;
         cursor: pointer;
         order: 1;
     }
+    .menu i{
+        font-size: larger;
+        color: transparent;
+        background-color: transparent;
+    }
     .head-name {
+        grid-column: auto;
         order: 2;
         text-align: center;
         flex: 1 1 100%;
+        background-color: transparent;
+        
     }
     .head-name h1 {
         font-size: 24px;
@@ -1327,6 +1365,7 @@ footer .web-description{
         box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px -8px;
     }
     .head-name h1 {
+        width:max-content !important;
         color: #ff6f61 !important;
     }
     .head-name p {
@@ -1336,6 +1375,7 @@ footer .web-description{
         color: black !important;
     }
     .head-img img {
+        display: none !important;
         border: 2px solid #ff6f61 !important;
     }
 

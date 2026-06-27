@@ -13,7 +13,7 @@ Your e-commerce website is now fully mobile responsive across all device sizes. 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 - **index.html** (Sign In page) ✓
-- **home.html** (Homepage) ✓ (Fixed from `initial-scale=0.1`)
+- **index.html** (Homepage) ✓ (Fixed from `initial-scale=0.1`)
 - **product.html** (Product Details) ✓
 - **cart.html** (Shopping Cart) ✓
 - **wishlist.html** (Wishlist) ✓

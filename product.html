@@ -40,7 +40,7 @@
                 </section>
 
                 <footer class="auth-footer">
-                    <a href="home.html" class="auth-link">← Back to Shopping</a>
+                    <a href="index.html" class="auth-link">← Back to Shopping</a>
                 </footer>
             </section>
         </main>
@@ -60,10 +60,6 @@
                 const buyNowButton = document.getElementById('detail-buy-now');
                 const wishlistButton = document.getElementById('detail-wishlist-button');
 
-                function redirectToHome() {
-                    window.location.href = 'home.html';
-                }
-
                 if (!product) {
                     title.textContent = 'Product not found';
                     category.textContent = '';
@@ -81,18 +77,13 @@
                 description.textContent = product.description;
                 price.textContent = product.price;
 
-                const loggedIn = localStorage.getItem('shopHubLoggedIn') === 'true';
-                const currentUser = localStorage.getItem('shopHubName') || localStorage.getItem('shopHubEmail') || 'Guest';
-
                 function getWishlist() {
-                    const wishlistKey = `shopHubWishlist_${currentUser}`;
-                    const stored = localStorage.getItem(wishlistKey);
+                    const stored = localStorage.getItem('shopHubWishlist');
                     return stored ? JSON.parse(stored) : [];
                 }
 
                 function saveWishlist(wishlist) {
-                    const wishlistKey = `shopHubWishlist_${currentUser}`;
-                    localStorage.setItem(wishlistKey, JSON.stringify(wishlist));
+                    localStorage.setItem('shopHubWishlist', JSON.stringify(wishlist));
                 }
 
                 function updateWishlistButton() {
@@ -103,29 +94,18 @@
                 }
 
                 function addToCart() {
-                    if (!loggedIn) {
-                        window.location.href = 'index.html';
-                        return;
-                    }
-
-                    const cartKey = `shopHubCart_${currentUser}`;
-                    const cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+                    const cart = JSON.parse(localStorage.getItem('shopHubCart') || '[]');
                     const existingItem = cart.find(item => item.id === product.id);
                     if (existingItem) {
                         existingItem.quantity += 1;
                     } else {
                         cart.push({ ...product, quantity: 1 });
                     }
-                    localStorage.setItem(cartKey, JSON.stringify(cart));
+                    localStorage.setItem('shopHubCart', JSON.stringify(cart));
                     alert(`${product.name} added to cart!`);
                 }
 
                 function toggleWishlist() {
-                    if (!loggedIn) {
-                        window.location.href = 'index.html';
-                        return;
-                    }
-
                     const wishlist = getWishlist();
                     const existingItem = wishlist.find(item => item.id === product.id);
                     if (existingItem) {
@@ -138,19 +118,13 @@
                     }
                     updateWishlistButton();
                 }
-function buyNow() {
-                    if (!loggedIn) {
-                        window.location.href = 'index.html';
-                        return;
-                    }
-                    // Store the product for checkout
+                function buyNow() {
                     localStorage.setItem('buyNowProduct', JSON.stringify(product));
                     window.location.href = 'address.html';
                 }
 
                 addToCartButton.addEventListener('click', addToCart);
-                buyNowButton.addEventListener('click', buyNow
-                addToCartButton.addEventListener('click', addToCart);
+                buyNowButton.addEventListener('click', buyNow);
                 wishlistButton.addEventListener('click', toggleWishlist);
 
                 function getRelatedProducts(category, excludeId) {
